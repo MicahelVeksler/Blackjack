@@ -1,0 +1,160 @@
+from p1_random import P1Random
+
+rng = P1Random()
+
+#print(rng.next_int(13)+1)
+
+continue_game = True
+num_game = 0
+p_wins = 0
+d_wins = 0
+t_game = 0
+winnings = 0.0
+list = [1, 2, 3, 4]
+
+#says number of games played
+while continue_game:
+    num_game += 1
+    print(F"START GAME #{num_game}")
+    hand = 0
+    card = rng.next_int(13) + 1
+    if card == 1:
+        print("Your card is a ACE!")
+        hand += 1
+        print(f"Your hand is: {hand}")
+    elif 2 <= card <=10:
+        print(f"Your card is a {card}!")
+        hand += card
+        print(f"Your hand is: {hand}")
+    elif card == 11:
+        print("Your card is a JACK!")
+        hand += 10
+        print(f"Your hand is: {hand}")
+    elif card == 12:
+        print("Your card is a QUEEN!")
+        hand += 10
+        print(f"Your hand is: {hand}")
+    elif card == 13:
+        print("Your card is a KING!")
+        hand += 10
+        print(f"Your hand is: {hand}")
+
+    no_winner = True
+    while no_winner:
+        print("1. Get another card")
+        print("2. Hold hand")
+        print("3. Print statistics")
+        print("4. Exit")
+        choice = int(input("Choose an option:"))
+        if choice == 1:
+            card = rng.next_int(13) + 1
+            if card == 1:
+                print("Your card is a ACE !")
+                hand += 1
+                if hand < 21:
+                    print(f"Your hand is: {hand}")
+                elif hand == 21:
+                    print("Your hand is: 21")
+                    print("BLACKJACK! You win!")
+                    p_wins += 1
+                    no_winner = False
+                else:
+                    print(f"Your hand is: {hand}")
+                    print("You exceeded 21! You lose.")
+                    d_wins += 1
+                    no_winner = False
+            elif 2 <= card <= 10:
+                print(f"Your card is a {card}!")
+                hand += card
+                if hand < 21:
+                    print(f"Your hand is: {hand}")
+                elif hand == 21:
+                    print("Your hand is: 21")
+                    print("BLACKJACK! You win!")
+                    p_wins += 1
+                    no_winner = False
+                else:
+                    print(f"Your hand is: {hand}")
+                    print("You exceeded 21! You lose.")
+                    d_wins += 1
+                    no_winner = False
+            elif card == 11:
+                print("Your card is a JACK!")
+                hand += 10
+                if hand < 21:
+                    print(f"Your hand is: {hand}")
+                elif hand == 21:
+                    print("Your hand is: 21")
+                    print("BLACKJACK! You win!")
+                    p_wins += 1
+                    no_winner = False
+                else:
+                    print(f"Your hand is: {hand}")
+                    print("You exceeded 21! You lose.")
+                    d_wins += 1
+                    no_winner = False
+            elif card == 12:
+                print("Your card is a QUEEN!")
+                hand += 10
+                if hand < 21:
+                    print(f"Your hand is: {hand}")
+                elif hand == 21:
+                    print("Your hand is: 21")
+                    print("BLACKJACK! You win!")
+                    p_wins += 1
+                    no_winner = False
+                else:
+                    print(f"Your hand is: {hand}")
+                    print("You exceeded 21! You lose.")
+                    d_wins += 1
+                    no_winner = False
+            elif card == 13:
+                print("Your card is a KING!")
+                hand += 10
+                if hand < 21:
+                    print(f"Your hand is: {hand}")
+                elif hand == 21:
+                    print("Your hand is: 21")
+                    print("BLACKJACK! You win!")
+                    p_wins += 1
+                    no_winner = False
+                else:
+                    print(f"Your hand is: {hand}")
+                    print("You exceeded 21! You lose.")
+                    d_wins += 1
+                    no_winner = False
+        elif choice ==2:
+            d_hand = rng.next_int(11) + 16
+            print(f"Dealer's hand: {d_hand}")
+            print(f"Your hand is: {hand}")
+            if (hand<d_hand) and (d_hand<=21):
+                d_wins+=1
+                print("Dealer wins!")
+                no_winner =False
+            elif (d_hand>hand) and (d_hand>21):
+                p_wins+=1
+                print("You win!")
+                no_winner=False
+            elif(d_hand<hand):
+                p_wins += 1
+                print("You win!")
+                no_winner = False
+            elif d_hand == hand:
+                t_game +=1
+                print("It's a tie! No one wins!")
+                no_winner = False
+        elif choice == 3:
+            print(f"Number of Player wins: {p_wins}")
+            print(f"Number of Dealer wins: {d_wins}")
+            print(f"Number of tie games: {t_game}")
+            num_game-=1
+            print(f"Total # of games played is: {num_game}")
+            winnings1 = float(100*(p_wins/(p_wins+d_wins+t_game)))
+            winnings = round(winnings1,1)
+            print(f"Percentage of Player wins: {winnings}%")
+        elif choice == 4:
+            continue_game = False
+            no_winner = False
+        elif choice not in list:
+            print("Invalid input!\nPlease enter an integer value between 1 and 4.")
+
